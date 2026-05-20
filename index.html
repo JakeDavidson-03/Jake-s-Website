@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jake Davidson</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --text: #111827;
+      --text-secondary: #6B7280;
+      --accent: #1D4ED8;
+      --accent-light: #EFF6FF;
+      --border: #E5E7EB;
+      --bg: #FFFFFF;
+      --bg-alt: #F9FAFB;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+    }
+    .nav-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 60px;
+    }
+    .nav-logo {
+      font-weight: 700;
+      font-size: 17px;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.3px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* LAYOUT */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section {
+      padding: 80px 0;
+    }
+
+    section:nth-child(even) {
+      background: var(--bg-alt);
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--text);
+      margin-bottom: 40px;
+    }
+
+    /* HERO */
+    #hero {
+      padding: 100px 0 80px;
+      background: var(--bg);
+    }
+
+    .hero-eyebrow {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--accent);
+      margin-bottom: 16px;
+      letter-spacing: 0.3px;
+    }
+
+    .hero-name {
+      font-size: clamp(40px, 6vw, 64px);
+      font-weight: 700;
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+
+    .hero-title {
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+
+    .hero-summary {
+      font-size: 16px;
+      color: var(--text-secondary);
+      max-width: 620px;
+      line-height: 1.75;
+      margin-bottom: 36px;
+    }
+
+    .hero-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.15s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-primary:hover { background: #1E40AF; }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1.5px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* EXPERIENCE */
+    .exp-list { display: flex; flex-direction: column; gap: 40px; }
+
+    .exp-item {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 0 32px;
+    }
+
+    .exp-meta {
+      padding-top: 2px;
+    }
+
+    .exp-date {
+      font-size: 13px;
+      color: var(--text-secondary);
+      font-weight: 400;
+      line-height: 1.5;
+    }
+
+    .exp-location {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    .exp-company {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 2px;
+      text-decoration: none;
+    }
+    .exp-company:hover { text-decoration: underline; }
+
+    .exp-company-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+      font-style: italic;
+    }
+
+    .exp-role {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .exp-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 12px;
+    }
+
+    .exp-bullets li {
+      font-size: 14px;
+      color: var(--text-secondary);
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.65;
+    }
+
+    .exp-bullets li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    /* PROJECTS */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 24px;
+    }
+
+    .project-card {
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 32px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+
+    .project-name {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .project-subtitle {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 14px;
+    }
+
+    .project-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 18px;
+    }
+
+    .project-bullets li {
+      font-size: 14px;
+      color: var(--text-secondary);
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.65;
+    }
+
+    .project-bullets li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
+    /* SKILLS */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px;
+    }
+
+    .skill-group h3 {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .skill-tag {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text);
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      padding: 4px 12px;
+      border-radius: 6px;
+    }
+
+    /* CONTACT */
+    #contact {
+      background: var(--bg);
+    }
+
+    .contact-intro {
+      font-size: 16px;
+      color: var(--text-secondary);
+      max-width: 520px;
+      margin-bottom: 36px;
+      line-height: 1.75;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 15px;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .contact-item:hover { color: var(--accent); }
+
+    .contact-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--accent-light);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .contact-icon svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 640px) {
+      .exp-item { grid-template-columns: 1fr; }
+      .exp-meta { margin-bottom: 8px; }
+      .nav-links { display: none; }
+      section { padding: 60px 0; }
+      #hero { padding: 72px 0 60px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">Jake Davidson</a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO / ABOUT -->
+  <section id="hero">
+    <div class="container">
+      <p class="hero-eyebrow">Newport Beach, CA</p>
+      <h1 class="hero-name">Jake Davidson</h1>
+      <p class="hero-title">Business &amp; Data Analyst &nbsp;·&nbsp; AI / Agentic Systems</p>
+      <p class="hero-summary">
+        Business and data analyst with hands-on experience across product development and sales functions.
+        Skilled at leveraging AI agent workflows to translate complex datasets into actionable insights that accelerate revenue and operational outcomes — from start-up environments to scaled technology companies.
+      </p>
+      <div class="hero-links">
+        <a href="mailto:jakedavidson0312@gmail.com" class="btn btn-primary">Get in touch</a>
+        <a href="https://linkedin.com/in/jake-davidson1" target="_blank" rel="noopener" class="btn btn-outline">LinkedIn</a>
+        <a href="Jake_Davidson_Resume.pdf" target="_blank" class="btn btn-outline">Resume PDF</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="container">
+      <p class="section-label">Experience</p>
+      <h2>Where I've worked</h2>
+      <div class="exp-list">
+
+        <div class="exp-item">
+          <div class="exp-meta">
+            <div class="exp-date">Feb 2025 – Present</div>
+            <div class="exp-location">Orange County, CA</div>
+          </div>
+          <div>
+            <a href="https://onemoveadvisory.com/" target="_blank" rel="noopener" class="exp-company">One Move Advisory</a>
+            <p class="exp-company-desc">GTM consulting services to software companies improving field performance</p>
+            <div class="exp-role">Business &amp; Data Analyst</div>
+            <ul class="exp-bullets">
+              <li>Develop content strategies and data-driven deliverables for SaaS portfolio companies, supporting technical sales, marketing, and customer success teams.</li>
+              <li>Leverage agentic AI workflows to accelerate research, synthesize competitive intelligence, and surface insights for client engagements.</li>
+              <li>Built an application to assess sales teams across technical skills, strategic selling, operational efficiency, and territory management — used as a primary diagnostic for get-well planning.</li>
+              <li>Created standardized GTM frameworks across MEDDPICC, BANT, and related methodologies.</li>
+              <li>Built custom Claude agents to automate sales/marketing enablement plans, client research briefs, and SOW generation.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-meta">
+            <div class="exp-date">May 2024 – Aug 2024</div>
+            <div class="exp-location">Atlanta, GA</div>
+          </div>
+          <div>
+            <a href="https://sema4.ai" target="_blank" rel="noopener" class="exp-company">Sema4.ai</a>
+            <p class="exp-company-desc">Enterprise platform to build, run, and manage intelligent AI agents</p>
+            <div class="exp-role">Software Engineering Intern</div>
+            <ul class="exp-bullets">
+              <li>Architected and deployed Python-based AI agents in VS Code leveraging Salesforce CRM data to optimize logo acquisition and ARR expansion strategies.</li>
+              <li>Designed and implemented a Linux server-side tickler system that trained LLMs to recognize and optimize time-sensitive parameters.</li>
+              <li>Delivered training sessions on the full LangChain ecosystem to cross-functional staff, enabling broader AI tooling adoption.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-meta">
+            <div class="exp-date">June 2023 – Aug 2023</div>
+            <div class="exp-location">New York, NY</div>
+          </div>
+          <div>
+            <a href="https://appfire.com" target="_blank" rel="noopener" class="exp-company">Appfire</a>
+            <p class="exp-company-desc">SaaS company building apps to enhance and extend major work management platforms</p>
+            <div class="exp-role">Corporate Development Intern</div>
+            <ul class="exp-bullets">
+              <li>Conducted M&amp;A due diligence on target companies across complementary product segments, evaluating strategic fit within the Atlassian ecosystem.</li>
+              <li>Modeled post-deal integration scenarios and authored deal memos used directly by the CFO in acquisition decisions.</li>
+              <li>Supported the close of one acquisition; built a Microsoft Access deal-data repository for categorical abstraction and future M&amp;A targeting.</li>
+              <li>Produced investor presentations blending multi-source datasets and KPIs to support an active capital raise.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="container">
+      <p class="section-label">Projects</p>
+      <h2>Things I've built</h2>
+      <div class="project-grid">
+
+        <div class="project-card">
+          <div class="project-header">
+            <div>
+              <div class="project-name">Jake's Flight Deck</div>
+              <div class="project-subtitle">Full-Stack Flight Search App</div>
+            </div>
+            <a href="https://jakes-flight-deck.onrender.com" target="_blank" rel="noopener" class="btn btn-outline" style="font-size:13px; padding: 6px 14px; white-space:nowrap;">Live Site</a>
+          </div>
+          <ul class="project-bullets">
+            <li>Built a full-stack web application that lets users search and discover flight options with a clean, intuitive interface.</li>
+            <li>Architected a client/server structure with a JavaScript backend handling API requests and a responsive frontend for flight discovery.</li>
+            <li>Deployed on Render with a live production URL.</li>
+          </ul>
+          <div class="tag-list" style="margin-top:auto; padding-top:16px;">
+            <span class="tag">JavaScript</span>
+            <span class="tag">Node.js</span>
+            <span class="tag">HTML/CSS</span>
+            <span class="tag">REST API</span>
+            <span class="tag">Render</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-header">
+            <div>
+              <div class="project-name">CivicSync</div>
+              <div class="project-subtitle">Full-Stack Volunteer Platform</div>
+            </div>
+          </div>
+          <ul class="project-bullets">
+            <li>Built a platform connecting local nonprofits with community volunteers, enabling opportunity discovery by interests, skills, and availability.</li>
+            <li>Integrated Google Sign-In and Google Maps API for streamlined authentication and geospatial visualization of volunteer opportunities.</li>
+          </ul>
+          <div class="tag-list" style="margin-top:auto; padding-top:16px;">
+            <span class="tag">Java</span>
+            <span class="tag">Python</span>
+            <span class="tag">PHP</span>
+            <span class="tag">HTML/CSS</span>
+            <span class="tag">SQL</span>
+            <span class="tag">Google Maps API</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="container">
+      <p class="section-label">Skills</p>
+      <h2>Technical toolkit</h2>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <h3>AI / ML</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Agentic AI</span>
+            <span class="skill-tag">LLM Fine-tuning</span>
+            <span class="skill-tag">Prompt Engineering</span>
+            <span class="skill-tag">ML Pipelines</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Languages</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">SQL</span>
+            <span class="skill-tag">HTML/CSS</span>
+            <span class="skill-tag">PHP</span>
+            <span class="skill-tag">Java</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Frameworks &amp; Tools</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">LangChain</span>
+            <span class="skill-tag">LangGraph</span>
+            <span class="skill-tag">LangSmith</span>
+            <span class="skill-tag">Salesforce</span>
+            <span class="skill-tag">Power BI</span>
+            <span class="skill-tag">Claude</span>
+            <span class="skill-tag">OpenAI</span>
+            <span class="skill-tag">Gemini</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Other</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Data Analytics</span>
+            <span class="skill-tag">Linux / Server</span>
+            <span class="skill-tag">Microsoft Access</span>
+            <span class="skill-tag">Office Suite</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <p class="section-label">Contact</p>
+      <h2>Get in touch</h2>
+      <p class="contact-intro">
+        I'm open to new opportunities in data, business analytics, or AI/ML roles. Feel free to reach out — I'd love to connect.
+      </p>
+      <div class="contact-links">
+        <a href="mailto:jakedavidson0312@gmail.com" class="contact-item">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+          </div>
+          jakedavidson0312@gmail.com
+        </a>
+        <a href="tel:9499221752" class="contact-item">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.57 3.18 2 2 0 0 1 3.55 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.5a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          (949) 922-1752
+        </a>
+        <a href="https://linkedin.com/in/jake-davidson1" target="_blank" rel="noopener" class="contact-item">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </div>
+          linkedin.com/in/jake-davidson1
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Jake Davidson &nbsp;·&nbsp; Newport Beach, CA</p>
+  </footer>
+
+</body>
+</html>
