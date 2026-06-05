@@ -18,6 +18,9 @@
       --border: #E5E7EB;
       --bg: #FFFFFF;
       --bg-alt: #F9FAFB;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04);
+      --shadow-hover: 0 8px 28px rgba(29,78,216,0.12), 0 4px 8px rgba(0,0,0,0.06);
     }
 
     html { scroll-behavior: smooth; }
@@ -104,7 +107,19 @@
     /* HERO */
     #hero {
       padding: 100px 0 80px;
-      background: var(--bg);
+      background: linear-gradient(150deg, #ffffff 0%, #f0f6ff 60%, #edf3ff 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      top: -120px;
+      right: -80px;
+      width: 480px;
+      height: 480px;
+      background: radial-gradient(circle, rgba(29,78,216,0.07) 0%, transparent 70%);
+      pointer-events: none;
     }
 
     .hero-eyebrow {
@@ -163,17 +178,19 @@
       background: var(--accent);
       color: #fff;
     }
-    .btn-primary:hover { background: #1E40AF; }
+    .btn-primary:hover { background: #1E40AF; box-shadow: 0 4px 12px rgba(29,78,216,0.25); transform: translateY(-1px); }
+    .btn-primary:active { transform: translateY(0); }
 
     .btn-outline {
       background: transparent;
       color: var(--text);
       border: 1.5px solid var(--border);
     }
-    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); transform: translateY(-1px); }
+    .btn-outline:active { transform: translateY(0); }
 
     /* EXPERIENCE */
-    .exp-list { display: flex; flex-direction: column; gap: 40px; }
+    .exp-list { display: flex; flex-direction: column; gap: 48px; }
 
     .exp-item {
       display: grid;
@@ -244,6 +261,22 @@
       color: var(--accent);
     }
 
+    .exp-content {
+      padding-left: 20px;
+      border-left: 2px solid var(--border);
+      position: relative;
+    }
+    .exp-content::before {
+      content: '';
+      position: absolute;
+      left: -5px;
+      top: 8px;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
     /* PROJECTS */
     .project-grid {
       display: grid;
@@ -258,6 +291,13 @@
       padding: 28px 32px;
       display: flex;
       flex-direction: column;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .project-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-hover);
+      border-color: #93C5FD;
     }
 
     .project-header {
@@ -347,6 +387,11 @@
       border: 1.5px solid var(--border);
       padding: 4px 12px;
       border-radius: 6px;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .skill-tag:hover {
+      border-color: var(--accent);
+      color: var(--accent);
     }
 
     /* CERTIFICATIONS */
@@ -364,6 +409,12 @@
       display: flex;
       align-items: flex-start;
       gap: 14px;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .cert-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
     }
 
     .cert-icon {
@@ -484,7 +535,7 @@
     <div class="nav-inner">
       <a href="#hero" class="nav-logo">Jake Davidson</a>
       <ul class="nav-links">
-        <li><a href="#about">About</a></li>
+        <li><a href="#hero">About</a></li>
         <li><a href="#experience">Experience</a></li>
         <li><a href="#projects">Projects</a></li>
         <li><a href="#skills">Skills</a></li>
@@ -524,7 +575,7 @@
             <div class="exp-date">Feb 2025 – Present</div>
             <div class="exp-location">Orange County, CA</div>
           </div>
-          <div>
+          <div class="exp-content">
             <a href="https://onemoveadvisory.com/" target="_blank" rel="noopener" class="exp-company">One Move Advisory</a>
             <p class="exp-company-desc">GTM consulting services to software companies improving field performance</p>
             <div class="exp-role">Business &amp; Data Analyst</div>
@@ -543,7 +594,7 @@
             <div class="exp-date">May 2024 – Aug 2024</div>
             <div class="exp-location">Atlanta, GA</div>
           </div>
-          <div>
+          <div class="exp-content">
             <a href="https://sema4.ai" target="_blank" rel="noopener" class="exp-company">Sema4.ai</a>
             <p class="exp-company-desc">Enterprise platform to build, run, and manage intelligent AI agents</p>
             <div class="exp-role">Software Engineering Intern</div>
@@ -560,7 +611,7 @@
             <div class="exp-date">June 2023 – Aug 2023</div>
             <div class="exp-location">New York, NY</div>
           </div>
-          <div>
+          <div class="exp-content">
             <a href="https://appfire.com" target="_blank" rel="noopener" class="exp-company">Appfire</a>
             <p class="exp-company-desc">SaaS company building apps to enhance and extend major work management platforms</p>
             <div class="exp-role">Corporate Development Intern</div>
@@ -709,7 +760,7 @@
   <section id="certifications">
     <div class="container">
       <p class="section-label">Certifications</p>
-      <h2>Anthropic credentials</h2>
+      <h2>Certifications</h2>
       <div class="cert-grid">
 
         <div class="cert-card">
